@@ -49,7 +49,7 @@ var budgetController =(function(){
             data.allItems[type].push(newItem);
             return newItem;
         },
-        calculateButdget:function(){
+        calculateBudget:function(){
             var expensesTotal,budgetTotal
             var incomeTotal=0;
             // calculate income total
@@ -58,6 +58,7 @@ var budgetController =(function(){
                 incomeTotal+=Number(item.value)
             }
             console.log(incomeTotal,'test income total')
+
             // calculate expense total 
 
             // calculate budget income - budget 
@@ -126,6 +127,17 @@ var UIController = (function(){
             // I nsert the HTML to the DOM 
             document.querySelector(element).insertAdjacentHTML('beforeend',html);
         },
+        clearFields:function(){
+            var fields, fieldsArr;
+            fields = document.querySelectorAll(Domstrings.inputDescription+', '
+                +Domstrings.inputValue);
+            fieldsArr = Array.prototype.slice.call(fields)
+            fieldsArr.forEach(function(current, index, array){
+                current.value = "";
+            })
+            fieldsArr[0].focus();
+            // console.log(typeof fields, fields,'test field type')    
+        },
         getDOMstrings:function(){
             return Domstrings;
         }
@@ -147,7 +159,9 @@ var controller = (function(budgetCtrl, UIctrl){
         UIctrl.addListItem(newItem,input.type)
 
         // 4: Calculate the budget 
-        budgetCtrl.calculateButdget()
+        UIctrl.clearFields()
+        // budgetCtrl.calculateBudget()
+        
         // 5: Display the budget on the UI
         // console.log(UIctrl,'test function')
     }
